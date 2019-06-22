@@ -1,0 +1,466 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Nomes</title>
+
+    <link rel="stylesheet" href="https://felipecortez.net/style/style.css">
+
+    <link rel="stylesheet" href="https://use.typekit.net/ccn1qlb.css">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/img/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/img/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/img/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/img/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/img/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/img/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-TileImage" content="/img/mstile-144x144.png">
+    <meta name="theme-color" content="#fefefe">
+
+    <style type="text/css">
+    body {
+      padding-top: 60px;
+    }
+
+    .faint {
+      opacity: 0.3;
+    }
+
+    .cdot {
+      font-weight: 700;
+      margin-right: 5px;
+    }
+
+    .red {
+      color: #CC3F3F;
+    }
+
+    .blu {
+      color: #3F91CC;
+    }
+
+    #navbar {
+      position: fixed;
+      z-index: 3;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 5px 0 5px 0;
+      background-color: #F5F5F5;
+    }
+
+    #navbar input[type='text'] {
+      width: 30px;
+      height: 17px;
+      padding: 0;
+      font-size: 16px;
+      text-align: center;
+      outline: 0;
+      display: none;
+    }
+
+    #controls {
+      min-width: 230px;
+      margin-left: 35px;
+      margin-bottom: 0;
+      display: inline-block;
+    }
+
+    #controls > div {
+      display: inline-block;
+      font-size: 16px;
+      color: #7F7F7F;
+      margin-right: 15px;
+      margin-bottom: 0;
+    }
+
+    #navbar a {
+      font-size: 14px;
+      color: #7F7F7F;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    #navbar form {
+      display: inline-block;
+    }
+
+    #page-number {
+      padding: 0;
+      margin: 0;
+      width: 0;
+      cursor: pointer;
+    }
+
+    #name-input {
+      font-size: 14px;
+      outline: 0;
+      width: 200px;
+      margin-bottom: 25px;
+    }
+
+    #page-display {
+      text-align: center;
+      width: 90px;
+      margin: 0;
+      user-select: none;
+    }
+
+    #name-input::placeholder {
+      color: #BBB;
+    }
+
+    .active {
+      font-weight: 700;
+    }
+
+    table {
+      position: relative;
+      float: left;
+      margin-right: 50px;
+    }
+
+    #tables {
+      margin-bottom: 20px;
+    }
+
+    #tables:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    #similar-names {
+      display: none;
+      z-index: 2;
+      border-left: 3px solid #D8D8D8;
+      padding-left: 10px;
+      position: relative;
+      top: -200px;
+    }
+
+    #arrow {
+      display: none;
+      position: absolute;
+      font-size: 20px;
+      color: #7F7F7F;
+      left: 275px;
+    }
+
+    .credits {
+      margin-bottom: 25px;
+    }
+
+    </style>
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-49103022-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <div id="arrow"> ⃕</div>
+
+    <div id="navbar">
+      <div id="controls">
+        <div><a id="first-page">↤</a></div>
+        <div><a id="prev-page">←</a></div>
+        <div id="page-display">
+          <form id="page-form">
+            <input id="page-input" type="text" name="page">
+          </form>
+          <span id="page-number">1</span>
+          <span>/ 137</span>
+        </div>
+        <div><a id="next-page">→</a></div>
+        <div><a id="last-page">↦</a></div>
+      </div>
+      <div id="navbar-line"></div>
+    </div>
+
+    <div class="container" style="width: 600px;">
+      <h1 class="title">nomes</h1>
+
+      <form id="name-form">
+        <input id="name-input" type="text" name="name" placeholder="pesquisar">
+      </form>
+
+      <div id="tables">
+        <table id="names">
+          <thead>
+            <tr>
+              <th style="width: 120px">Nome</th>
+              <th>Quantidade</th>
+            </tr>
+          </thead>
+          <tbody id="names-tbody">
+          </tbody>
+        </table>
+
+        <table id="similar-names">
+          <thead>
+            <tr>
+              <th style="width: 120px">Nome</th>
+              <th>Quantidade</th>
+            </tr>
+          </thead>
+          <tbody id="similar-names-tbody">
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+      Desenvolvido a partir de informações do <a href="https://censo2010.ibge.gov.br/">Censo 2010 - IBGE</a>. Os nomes similares são obtidos
+      através da distância de Levenshtein implementada <a href="https://github.com/mateusza/SQLite-Levenshtein">aqui</a>.
+      </p>
+
+      <div class="credits"><a href="/">fc</a></div>
+    </div>
+
+
+    <script>
+     const namesTable = document.getElementById("names");
+     const namesTableBody = document.getElementById("names-tbody");
+     const similarNamesTable = document.getElementById("similar-names");
+     const similarNamesBody = document.getElementById("similar-names-tbody");
+     const pages = document.getElementById("pages");
+     const firstPage = document.getElementById("first-page");
+     const nextPage = document.getElementById("next-page");
+     const pageForm = document.getElementById("page-form");
+     const pageInput = document.getElementById("page-input");
+     const pageNumber = document.getElementById("page-number");
+     const prevPage = document.getElementById("prev-page");
+     const lastPage = document.getElementById("last-page");
+     const nameForm = document.getElementById("name-form");
+     const nameInput = document.getElementById("name-input");
+     const arrow = document.getElementById("arrow");
+     const totalPages = 137
+
+     var page = 1;
+     var httpRequest;
+
+     function showSimilarNamesTable(show) {
+         const val = show ? "block" : "none";
+         similarNamesTable.style.display = val;
+         arrow.style.display = val;
+     }
+
+     function requestName(name) {
+         showSimilarNamesTable(false);
+
+         httpRequest = new XMLHttpRequest();
+
+         if (!httpRequest) {
+             return false;
+         }
+
+         httpRequest.open('GET', "https://felipecortez.net/nomes/api/name/" + name);
+         httpRequest.send();
+         httpRequest.onreadystatechange = function() {
+             if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                 if (httpRequest.status === 200) {
+                     var results = JSON.parse(httpRequest.responseText);
+                     name = `${results["name"]}-${results["sex"]}`;
+
+                     while (similarNamesBody.firstChild) {
+                         similarNamesBody.removeChild(similarNamesBody.firstChild);
+                     }
+
+                     page = results["page"];
+                     pageNumber.innerHTML = page;
+
+                     httpRequest2 = new XMLHttpRequest();
+                     httpRequest2.open('GET', "https://felipecortez.net/nomes/api/names/" + page.toString());
+                     httpRequest2.send();
+                     httpRequest2.onreadystatechange = function() {
+                         if (httpRequest2.readyState === XMLHttpRequest.DONE) {
+                             if (httpRequest2.status === 200) {
+                                 var results2 = JSON.parse(httpRequest2.responseText);
+                                 while (namesTableBody.firstChild) {
+                                     namesTableBody.removeChild(namesTableBody.firstChild);
+                                 }
+
+                                 for (var i = 0; i < results2.length; ++i) {
+                                     result = results2[i];
+                                     addRow(namesTableBody, result["name"], result["sex"], result["qty"]);
+                                 }
+
+                                 var position = document.getElementById(`n-${name}`).getBoundingClientRect().top + window.scrollY;
+                                 similarNamesTable.style.marginTop = position + "px";
+                                 window.scrollTo({left: 0, top: position - 50, behavior: 'smooth'});
+                                 arrow.style.top = (position) + "px";
+
+                                 var similarNames = results["similar_names"];
+
+                                 for (var i = 0; i < similarNames.length; ++i) {
+                                     result = similarNames[i];
+                                     addRow(similarNamesBody, result["name"], result["sex"], result["qty"]);
+                                 }
+
+                                 showSimilarNamesTable(true);
+                             } else {
+                                 console.log("error on fetch");
+                             }
+                         }
+                     }
+
+                     history.replaceState({name: name}, null, "/nomes/" + name);
+                 } else {
+                     nameInput.style.borderColor = "#CC3F3F";
+                 }
+             }
+         }
+
+     }
+
+     //-----------------------
+
+     function requestPage() {
+         httpRequest = new XMLHttpRequest();
+
+         if (!httpRequest) {
+             return false;
+         }
+
+         showSimilarNamesTable(false);
+         history.replaceState({page: page}, null, "/nomes/" + page);
+         window.scrollTo({left: 0, top: 0, behavior: 'smooth'});
+
+         pageNumber.innerHTML = page;
+
+         httpRequest.open('GET', "https://felipecortez.net/nomes/api/names/" + page.toString());
+         httpRequest.send();
+         httpRequest.onreadystatechange = function() {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                if (httpRequest.status === 200) {
+                    var results = JSON.parse(httpRequest.responseText);
+                    while (namesTableBody.firstChild) {
+                        namesTableBody.removeChild(namesTableBody.firstChild);
+                    }
+
+                    for (var i = 0; i < results.length; ++i) {
+                        result = results[i];
+                        addRow(namesTableBody, result["name"], result["sex"], result["qty"]);
+                    }
+                } else {
+                    console.log("error on fetch");
+                }
+            }
+         }
+     }
+
+     function validatePage(page) {
+         return (page >= 1 && page <= 137);
+     }
+
+     function addRow(table, name, sex, qty) {
+         var sexClass = (sex == "M" ? "blu" : "red");
+         var sexSpan = "<span class='cdot " + sexClass + "'>·</span>";
+         var row = table.insertRow();
+
+         var nameTd = row.insertCell();
+         nameTd.className = "name";
+         if (table.id == "names-tbody") {
+             nameTd.id = `n-${name}-${sex}`;
+         }
+         nameTd.insertAdjacentHTML("beforeend", `${sexSpan} ${name}`);
+         nameTd.onclick = function() {
+             requestName(`${name}-${sex}`);
+         }
+
+         var qtyFmt = qty.toLocaleString('pt-BR')
+         var qtyTd = row.insertCell();
+         var qtyNode = document.createTextNode(qtyFmt);
+         qtyTd.appendChild(qtyNode);
+     }
+
+     window.onpopstate = function(event) {
+         page = event.state.page;
+         requestPage();
+     };
+
+     firstPage.onclick = function() {
+         page = 1;
+         requestPage();
+     }
+
+     prevPage.onclick = function() {
+         if (validatePage(page - 1)) { --page; }
+         requestPage();
+     }
+
+     nextPage.onclick = function() {
+         if (validatePage(page + 1)) { ++page; }
+         requestPage();
+     }
+
+     lastPage.onclick = function() {
+         page = 137;
+         requestPage();
+     }
+
+     pageForm.onsubmit = function(event) {
+         event.preventDefault();
+         page = validatePage(pageInput.value) ? pageInput.value : page;
+         requestPage();
+         pageInput.style.display = "none";
+         pageNumber.style.display = "inline";
+     }
+
+     pageNumber.onclick = function() {
+         pageInput.style.display = "block";
+         pageNumber.style.display = "none";
+         pageInput.focus();
+         pageInput.value = page;
+     }
+
+     pageInput.onblur = function() {
+         pageInput.style.display = "none";
+         pageNumber.style.display = "inline";
+     }
+
+     nameForm.onsubmit = function(e) {
+         e.preventDefault();
+         requestName(nameInput.value);
+     }
+
+     nameInput.onkeydown = function() {
+         nameInput.style.borderColor = "#979797";
+     }
+
+     // on load
+     var url = window.location.pathname;
+     var urlArg = url.substring(url.lastIndexOf('/') + 1);
+
+     if (isNaN(parseInt(urlArg))) {
+         if (urlArg) {
+             requestName(urlArg);
+         } else {
+             page = 1;
+             requestPage();
+         }
+     } else {
+         page = validatePage(urlArg) ? urlArg : 1;
+         requestPage();
+     }
+
+    </script>
+  </body>
+</html>
