@@ -1,0 +1,3 @@
+[submodule "SQLite-Levenshtein"]
+	path = SQLite-Levenshtein
+	url = https://github.com/mateusza/SQLite-Levenshtein
