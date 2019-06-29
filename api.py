@@ -83,9 +83,9 @@ def names(page):
 
     return jsonify(names)
 
-@app.route('/', defaults={'page': '1'})
-@app.route('/<page>')
-def page_page(page):
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def page_page(path):
     return render_template('nomes_js.html')
 
 if __name__ == '__main__':
