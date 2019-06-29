@@ -271,7 +271,7 @@
              return false;
          }
 
-         httpRequest.open('GET', "https://felipecortez.net/nomes/api/name/" + name);
+         httpRequest.open('GET', "/api/name/" + name);
          httpRequest.send();
          httpRequest.onreadystatechange = function() {
              if (httpRequest.readyState === XMLHttpRequest.DONE) {
@@ -287,7 +287,7 @@
                      pageNumber.innerHTML = page;
 
                      httpRequest2 = new XMLHttpRequest();
-                     httpRequest2.open('GET', "https://felipecortez.net/nomes/api/names/" + page.toString());
+                     httpRequest2.open('GET', "/api/names/" + page.toString());
                      httpRequest2.send();
                      httpRequest2.onreadystatechange = function() {
                          if (httpRequest2.readyState === XMLHttpRequest.DONE) {
@@ -345,7 +345,7 @@
 
          pageNumber.innerHTML = page;
 
-         httpRequest.open('GET', "https://felipecortez.net/nomes/api/names/" + page.toString());
+         httpRequest.open('GET', "/api/names/" + page.toString());
          httpRequest.send();
          httpRequest.onreadystatechange = function() {
             if (httpRequest.readyState === XMLHttpRequest.DONE) {
