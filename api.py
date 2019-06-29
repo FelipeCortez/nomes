@@ -19,7 +19,7 @@ def get_db():
         db = g._database = sqlite3.connect(DATABASE)
         db.row_factory = dict_factory
         db.enable_load_extension(True)
-        db.load_extension('./levenshtein')
+        db.load_extension('./liblevenshtein')
         db.enable_load_extension(False)
     return db
 
