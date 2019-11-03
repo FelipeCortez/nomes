@@ -1,6 +1,7 @@
 FROM python:3.7-alpine
 
 ENV PYTHONUNBUFFERED 1
+ENV FLASK_ENV development
 
 RUN mkdir /code
 
